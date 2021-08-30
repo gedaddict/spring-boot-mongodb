@@ -1,0 +1,4 @@
+spring:
+   data:
+      mongodb:
+         uri: mongodb+srv://admin:admin@cluster0.gei86.mongodb.net/test_db?retryWrites=true&w=majority

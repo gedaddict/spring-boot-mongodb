@@ -1,0 +1,16 @@
+spring:
+   data:
+      mongodb:
+         #REPLICA SET
+         #uri: mongodb://${DBUSER}:${DBPASS}@${MONGO1},${MONGO2},${MONGO3}/${DBNAME}?authSource=${AUTH_SOURCE}&replicaSet=${REPLICA_SET}
+         #uri: mongodb://dbuser:dbpass@mongo1:27017,mongo2:27018,mongo3:27019/test_db?replSetName=mongo-replica&authSource=admin
+         #SHARDED CLUSTER
+         uri: mongodb://${DBUSER}:${DBPASS}@${ROUTER1},${ROUTER2},${ROUTER3}/${DBNAME}?authSource=${AUTH_SOURCE}
+         #uri: mongodb://dbuser:dbpass@mongo1:27017,mongo2:27018,mongo3:27019/test_db?replSetName=mongo-replica&authSource=admin
+         #LOCAL INSTANCE IN DOCKER CONTAINER
+         #host: mongodb
+         #port: 27017
+         #database: test_db
+
+
+
