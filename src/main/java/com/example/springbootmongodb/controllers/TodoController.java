@@ -1,6 +1,7 @@
 package com.example.springbootmongodb.controllers;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,8 @@ public class TodoController {
 	@Autowired
 	private TodoRepository todoRepository;
 	
+	private Todo task;
+	
 	@GetMapping("")
 	public List<Todo> getAllTodo() {
 		return todoRepository.findAll();
@@ -30,18 +33,23 @@ public class TodoController {
 	
 	@GetMapping("/{todoId}")
 	public Todo getTodo(@PathVariable("todoId") String todoId) {
-		return todoRepository.findById(todoId).map(Todo::new).get();
+		//return todoRepository.findById(todoId).map(Todo::new).get();
+		task = todoRepository.findByTaskId(todoId);
+		if (task == null)
+			throw new NoSuchElementException();
+		return task;
 	}
 	
 	@PostMapping("")
 	public ResponseEntity<Todo> addTodo(@RequestBody Todo todo) {
-		Todo newTodo = todoRepository.save(todo);
-		return new ResponseEntity<Todo>(newTodo, HttpStatus.CREATED);
+		task = todoRepository.save(todo);
+		return new ResponseEntity<Todo>(task, HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping("/{todoId}")
 	public String deleteTodo(@PathVariable("todoId") String todoId) {
-		todoRepository.deleteById(todoId);
+		//todoRepository.deleteById(todoId);
+		todoRepository.deleteByTaskId(todoId);
 		return "todoId " +todoId + " is done";
 	}
 

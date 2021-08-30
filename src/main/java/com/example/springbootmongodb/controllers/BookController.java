@@ -1,6 +1,7 @@
 package com.example.springbootmongodb.controllers;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,13 +33,15 @@ public class BookController {
 	
 	@GetMapping("/{booknumber}")
 	public ResponseEntity<Book> getBook(@PathVariable("booknumber") String booknumber) {
-		book = bookRepository.findById(booknumber).map(Book::new).get();
+		//book = bookRepository.findById(booknumber).map(Book::new).get();
+		book = bookRepository.findByBooknumber(booknumber);
+		if (book == null)
+			throw new NoSuchElementException();
 		return new ResponseEntity<Book>(book, HttpStatus.ACCEPTED);
 	}
 	
 	@PostMapping("")
 	public ResponseEntity<Book> addBook(@RequestBody Book book)	 {
-	
 		book = bookRepository.save(book);
 		return new ResponseEntity<Book>(book, HttpStatus.CREATED);
 	}
@@ -46,7 +49,8 @@ public class BookController {
 	@DeleteMapping("/{booknumber}")
 	public String deleteBook(@PathVariable ("booknumber") String booknumber)	 {
 	
-		bookRepository.deleteById(booknumber);
+		//bookRepository.deleteById(booknumber);
+		bookRepository.deleteByBooknumber(booknumber);
 		return "Booknumber " +booknumber + " deleted.";
 	}
 }
