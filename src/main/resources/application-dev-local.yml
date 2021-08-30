@@ -1,10 +1,7 @@
 spring:
    data:
       mongodb:
-         uri: mongodb+srv://admin:admin@cluster0.gei86.mongodb.net/test_db?retryWrites=true&w=majority
-         #host: localhost
-         #port: 27017
-         #database: test_db
-
-
-
+         #Connecting to Replica set
+         uri: mongodb://localhost:27017,localhost:27018,localhost:27019/test_db?replSetName=repl1
+         #uri: mongodb://127.0.0.1:27017/test_db
+   
